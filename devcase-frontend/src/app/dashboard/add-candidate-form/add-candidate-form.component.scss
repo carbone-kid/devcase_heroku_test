@@ -1,0 +1,15 @@
+.container {
+  position: relative;
+}
+
+.container .loading {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.6);
+  z-index: 2000;
+  background-image: url(../../../assets/img/load_orange.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50px;
+}

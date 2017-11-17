@@ -1,0 +1,23 @@
+version: "3.1"
+
+services:
+  database:
+    image: postgres:9.5
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+
+
+  webapp:
+    build:
+       context: ./devcase-backend
+       dockerfile: ./docker/webapp/Dockerfile
+    image: sytac/devcase-webapp
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    links:
+      - "database:db"
+    env_file:
+      - backend_vars.env

@@ -1,0 +1,59 @@
+<div *ngIf="apiError.error; then errorDisplay else stagesRoles"></div>
+
+<ng-template #stagesRoles>
+  <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h3>Manage notifications</h3>
+          <div class=" emailNotificationsTable row centered workflow-stage-title">
+            <div class="col" *ngFor="let stage of stages ; index as i ">
+              <h4>{{stages[i].name}}</h4>
+              <div
+                *ngIf="modelState[stage.id]?.loading; then loadingTemplate; else rolesRecipientsLoadedTemplate"></div>
+
+              <ng-template #rolesRecipientsLoadedTemplate>
+                <div *ngIf="modelState[stage.id]?.error; then errorDisplay; else manageRolesRecipientsTemplate"></div>
+                <ng-template #manageRolesRecipientsTemplate>
+                  <div *ngIf="model[stages[i].id].length>0; then currentRolesRecipientsTemplate"></div>
+                  <ng-template #currentRolesRecipientsTemplate>
+                    <button *ngFor="let recipient of model[stages[i].id] ; index as j " [value]="recipient?.id"
+                            (click)="remove(stage, j)">
+                      {{ recipient.role?.name | capitalize }}
+                      <span>&times;</span>
+                    </button>
+                  </ng-template>
+                  <form id="assignRoleForm_{{stages[i].id}}}">
+                    <div class="selectorWrapper">
+                      <span>Add more ...</span>
+                      <select (change)="add(stages[i], $event.target.value)">
+                        <option></option>
+                        <option *ngFor="let recipient of availableRecipients[stage?.id] ; index as j" [value]="j">
+                          {{ recipient.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </form>
+                </ng-template>
+
+              </ng-template>
+            </div>
+          </div>
+          <div class="row"><i class="col">*The creator will automatically receive an email for the stage &quot;Repository
+            created&quot;</i></div>
+        </div>
+      </div>
+  </div>
+</ng-template>
+<ng-template #loadingTemplate>
+  Loading ...
+</ng-template>
+
+<!--Error message-->
+<ng-template #errorDisplay>
+  <div class="container">
+    <div class="card-block h-100">
+      <p>An error occurred while trying to retrieve the data!</p>
+      <p>Please try again, if the error persists contact technical support.</p>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,129 @@
+<div class="container mt-5 margin-bottom-100">
+  <div *ngIf="apiError.error; then errorDisplay else reposDisplay">
+  </div>
+  <!--Repos table display-->
+  <ng-template #reposDisplay>
+    <div *ngIf="repositories?.length > 0; else emptyRepos">
+      <div class="candidates-table container-fluid">
+        <div class="row d-none d-lg-row border">
+          <div class="col-lg-2 py-2 px-3">Candidate name</div>
+          <div class="col-lg-2 py-2 px-3">Repository name</div>
+          <div class="col-lg-1 py-2 px-3">Creator</div>
+          <div class="col-lg-2 py-2 px-3">Reviewer</div>
+          <div class="col-lg-1 py-2 px-3">Deadline</div>
+          <div class="col-lg-1 py-2 px-3">Modified</div>
+          <div class="col-lg-2 py-2 px-3 text-center">Stage</div>
+        </div>
+        <div *ngFor="let repo of repositories;" class="row border border-top-0">
+          <div class="col-lg-2 py-2 px-3">
+            <strong class="d-lg-none">Candidate name:<br/></strong>
+            <a href="{{repo.githubUrl}}" target="_blank"
+               data-toggle="tooltip"
+               data-placement="top"
+               data-html="true"
+               class="v-align-middle"
+               title=" <img src='../../../assets/img/github_logo_light_32.png' width='18'/> Github account: {{repo.candidate.githubUserName}}</b>">
+              {{repo.candidate.name | capitalize}}
+            </a>
+          </div>
+          <div class="col-lg-1 py-2 px-3 d-lg-none">
+            <strong>GitHub username:<br/></strong>
+            <a href="https://github.com/{{repo.candidate.githubUserName}}" target="_blank">{{repo.candidate.githubUserName}}</a>
+          </div>
+          <div class="col-lg-2 py-2 px-3">
+            <strong class="d-lg-none">Repository name:<br/></strong>
+            <a href="https://github.com/Sytac/{{repo.type}}-{{repo.candidate.githubUserName}}" target="_blank">{{repo.type}}-{{repo.candidate.githubUserName}}</a>
+          </div>
+          <div class="col-lg-1 py-2 px-3">
+            <strong class="d-lg-none">Creator:<br/></strong>
+            <a href="mailto:{{repo.creator.email}}" target="_blank">{{repo.creator.name | capitalize }}</a>
+          </div>
+          <div class="col-lg-2 py-2 px-3">
+            <strong class="d-lg-none align-top">Reviewer:<br/></strong>
+                <a href="mailto:{{repo.reviewer?.email}}" target="_blank">{{repo.reviewer?.name | capitalize}}</a>
+          </div>
+          <div class="col-lg-1 py-2 px-3"><strong class="d-lg-none">Deadline:<br/></strong>
+            {{repo.deadline | date : 'dd MMM yyyy'}}
+          </div>
+          <div class="col-lg-1 py-2 px-3"><strong class="d-lg-none">Modified date:<br/></strong>
+            {{repo.modified | date:'dd MMM yyyy'}}
+          </div>
+          <div class="dev-case-workflow col-lg-3 py-2 px-3"><strong class="d-lg-none">Stage:<br/></strong>
+            {{stages.byId[repo.stage?.id]?.name}}
+            <br/>
+            <span>
+                <button data-toggle="tooltip"
+                        data-placement="top"
+                        title="Repository created"
+                        id="repositoryCreated_{{repo.id}}"
+                        [ngClass]="{'selected':repo?.stage?.id==1, 'disabled':repo?.stage?.id>1}"
+                        (click)="changeStage(repo, {name: 'Repository created', id: 1})"></button>
+                <button data-toggle="tooltip"
+                        data-placement="top" [ngClass]="{'selected':repo?.stage?.id==2, 'disabled':repo.stage?.id>2}"
+                        title="Solution available"
+                        (click)="changeStage(repo, {name: 'Solution available', id: 2})"></button>
+                <button data-toggle="tooltip"
+                        data-placement="top" [ngClass]="{'selected':repo.stage?.id==3, 'disabled':repo.stage?.id>3}"
+                        title="Review complete"
+                        (click)="changeStage(repo, {name: 'Review complete', id: 3})"></button>
+                <button data-toggle="tooltip"
+                        data-placement="top" [ngClass]="{'selected':repo.stage?.id==4, 'disabled':repo.stage?.id==4}"
+                        title="Archived"
+                        (click)="changeStage(repo, {name: 'Archived', id: 4})"></button>
+              </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="confirmActionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+           aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" *ngIf="actionConfirmInfo.repository">
+              This action will <strong>change</strong> the devcase stage from
+              <strong>{{stages.byId[actionConfirmInfo.repository.stage.id].name}}</strong> to <strong>{{actionConfirmInfo.newStage.name}}</strong>.
+              Are you sure you want to perform this operation?
+            </div>
+            <div class="modal-footer">
+              <button type="button" (click)="confirmStageChange()" class="btn btn-secondary">Yes</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!--Empty repos message-->
+  <ng-template #emptyRepos>
+    <div class="container">
+      <h4 class="card-title">No data available </h4>
+      <div class="card-block h-100">
+        <p>We didn't find any available data! We are sorry...</p>
+        <p>Please try again, if the error persists contact technical support at
+          <a href="mailto:devcase@sytac.io?subject=API call empty data">devcase@sytac.io</a>
+        </p>
+      </div>
+    </div>
+  </ng-template>
+
+  <!--Error message-->
+  <ng-template #errorDisplay>
+    <div class="container">
+      <h4 class="card-title">{{apiError.msg}} </h4>
+      <div class="card-block h-100">
+        <p>An error occurred while trying to retrieve the data! We are sorry...</p>
+        <p>Please try again, if the error persists contact technical support at
+          <a href="mailto:devcase@sytac.io?subject=API call error">devcase@sytac.io</a>
+        </p>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,3 @@
+rootProject.name = 'devcase'
+include 'devcase-frontend'
+include 'devcase-backend'

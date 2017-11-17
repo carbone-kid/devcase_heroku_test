@@ -1,0 +1,15 @@
+<!--Header section-->
+<app-header></app-header>
+
+<!--Table with all the DevCases-->
+<devcases-table></devcases-table>
+
+<!--Form for adding a new candidate-->
+<add-candidate-form></add-candidate-form>
+
+<!--Notification configuration-->
+<span *ngIf="user?.role=='admin'">
+  <manage-notifications></manage-notifications>
+</span>
+<!--Footer-->
+<app-footer></app-footer>

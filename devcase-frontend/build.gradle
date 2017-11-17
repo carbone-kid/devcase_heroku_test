@@ -1,0 +1,33 @@
+buildscript {
+  repositories 
+  {
+    mavenCentral()
+    maven 
+    {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  
+  dependencies {
+    classpath "com.moowork.gradle:gradle-node-plugin:1.1.1"
+  }
+}
+
+apply plugin: 'com.moowork.node'
+
+node {
+  version = '6.11.3'
+  download = true
+}
+
+task buildDev(type: NpmTask, dependsOn: 'npmInstall') {
+  group = 'build'
+  description = 'Compile client side folder for development'
+  args = ['run', 'buildDev']
+}
+
+task build(type:NpmTask, dependsOn: 'npmInstall') {
+  group = 'build'
+  description = "Compile client side folder for production"
+  args = ['run', 'build']
+}

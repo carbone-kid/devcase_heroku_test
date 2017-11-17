@@ -1,0 +1,90 @@
+<div class="container container-fluid">
+  <div class="card">
+    <div class="card-body">
+      <h3>Add DevCase</h3>
+      <div class="loading" *ngIf="loading"></div>
+      <form novalidate (ngSubmit)="onSubmit()" #f="ngForm">
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="inputCandidateName" class="col-form-label">Candidate name</label>
+            <input class="form-control" name="inputCandidateName" id="inputCandidateName"
+                   [(ngModel)]="devCase.candidate_name" placeholder="Full name"
+                   required #inputCandidateName="ngModel" [ngClass]="{
+            'border-danger': inputCandidateName.invalid && (inputCandidateName.dirty || inputCandidateName.touched),
+            'border-success': inputCandidateName.valid && (inputCandidateName.dirty || inputCandidateName.touched)}">
+            <div *ngIf="inputCandidateName.invalid && (inputCandidateName.dirty || inputCandidateName.touched)">
+              <span *ngIf="inputCandidateName.errors.required" class="text-danger">
+                Candidate's name has to be filled!
+              </span>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputGithubAccount" class="col-form-label">Candidate GithHub account</label>
+            <input class="form-control" name="inputGithubAccount" id="inputGithubAccount"
+                   [(ngModel)]="devCase.candidate_account" placeholder="Username"
+                   required #inputGithubAccount="ngModel" [ngClass]="{
+            'border-danger': inputGithubAccount.invalid && (inputGithubAccount.dirty || inputGithubAccount.touched),
+            'border-success': inputGithubAccount.valid && (inputGithubAccount.dirty || inputGithubAccount.touched)}">
+            <div *ngIf="inputGithubAccount.invalid && (inputGithubAccount.dirty || inputGithubAccount.touched)">
+              <span *ngIf="inputGithubAccount.errors.required" class="text-danger">
+                Candidate's account has to be filled!
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputCandidateEmail" class="col-form-label">Candidate e-mail</label>
+            <input type="email" class="form-control" name="inputCandidateEmail" id="inputCandidateEmail"
+                   [(ngModel)]="devCase.candidate_email" placeholder="E-mail" required #inputCandidateEmail="ngModel"
+                   pattern="{{emailPattern}}" [ngClass]="{
+            'border-danger': inputCandidateEmail.invalid && (inputCandidateEmail.dirty || inputCandidateEmail.touched),
+            'border-success': inputCandidateEmail.valid && (inputCandidateEmail.dirty || inputCandidateEmail.touched)}">
+            <div *ngIf="inputCandidateEmail.invalid && (inputCandidateEmail.dirty || inputCandidateEmail.touched)">
+              <span *ngIf="inputCandidateEmail.errors.required" class="text-danger">
+                Candidate's email has to be filled!
+              </span>
+              <span *ngIf="inputCandidateEmail.errors.pattern" class="text-danger">
+                Candidate's email must be a valid e-mail!
+              </span>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputDeadline" class="col-form-label">Deadline</label>
+            <input type="date" class="form-control" name="inputDeadline" id="inputDeadline"
+                   [(ngModel)]="devCase.deadline"
+                   required minDate #inputDeadline="ngModel" [ngClass]="{
+            'border-danger': inputDeadline.invalid && (inputDeadline.dirty || inputDeadline.touched),
+            'border-success': inputDeadline.valid && (inputDeadline.dirty || inputDeadline.touched)}">
+            <div *ngIf="inputDeadline.invalid && (inputDeadline.dirty || inputDeadline.touched)">
+              <span *ngIf="inputDeadline.errors.required" class="text-danger">
+                Deadline has to be filled!
+              </span>
+            </div>
+
+            <div *ngIf="inputDeadline.invalid && inputDeadline.errors.minDate">
+              Deadline has to be a date in the future.
+            </div>
+
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="inputDevCase" class="col-form-label">DevCase type</label>
+            <select id="inputDevCase" name="inputDevCase" class="form-control" [(ngModel)]="devCase.type"
+                    required #inputDevCase="ngModel">
+              <option value="backend">Backend</option>
+              <option value="frontend">Frontend</option>
+            </select>
+            <div *ngIf="inputDevCase.invalid && (inputDevCase.dirty || inputDevCase.touched)">
+              <span class="text-danger" *ngIf="inputDevCase.errors.required">
+                Please select a DevCase type!
+              </span>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn sytac-btn--orange" [disabled]="f.invalid">Add candidate</button>
+      </form>
+    </div>
+  </div>
+</div>

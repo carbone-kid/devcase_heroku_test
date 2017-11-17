@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top sytac--dark">
+  <a (click)="goHome()" class="navbar-brand cu-pointer">
+    <img src="../../../assets/img/logo_light_grey.png" height="40" class="d-inline-block align-top"/>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+          aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <span>{{user.name | capitalize}},
+      <span class="text-white">{{user?.role | capitalize}}</span>
+      <a (click)="logout()" class="text-white underline cu-pointer">logout</a></span>
+  </div>
+</nav>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron sytac--orange p-4">
+  <div class="container mt-6">
+    <h4 class="display-4">
+      <img src="../../../assets/img/github_logo_64.png"> Sytac's DevCase portal</h4>
+    <p>
+      In this platform you'll be able to clone GitHub repositories, add collaborators to all these repositories,
+      remove collaborators, etc... All under the hood!
+    </p>
+  </div>
+</div>

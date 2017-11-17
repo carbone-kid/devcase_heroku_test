@@ -1,0 +1,173 @@
+@import "~bootstrap/scss/bootstrap";
+@import '../../../assets/css/_variables';
+
+$sytac-orange: #e67e22;
+$borderColor: rgba(230, 126, 34, 0.2);
+
+@include media-breakpoint-up(lg) {
+  .candidates-table .d-lg-row {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -ms-flex-wrap: wrap !important;
+    flex-wrap: wrap !important;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  .dev-case-workflow, .dev-case-action {
+    text-align: center;
+  }
+  .dev-case-workflow ul {
+    margin: 0px;
+  }
+  .v-align-middle {
+    position: relative;
+    top: 25%;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .candidates-table > div:nth-child(2) {
+    border-top: solid 1px $borderColor !important;
+  }
+  .dev-case-workflow, .dev-case-action {
+    text-align: left;
+  }
+  .dev-case-workflow ul {
+    margin: 0px 0px 0px 160px;
+  }
+  .dev-case-workflow span {
+    margin-left: 160px;
+    display: inline;
+  }
+}
+
+.candidates-table div.row:hover {
+  background-color: rgba(207, 113, 30, .05)
+}
+
+.candidates-table > div:first-child {
+  border-bottom: none !important;
+  background-color: #e77d00;
+  color: #ffffff;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.candidates-table > div:first-child:hover {
+  background-color: #e77d00;
+}
+
+.candidates-table, .candidates-table a {
+  color: #495057 !important;
+}
+
+.candidates-table .row strong {
+  display: inline-block;
+  padding-right: 20px;
+  min-width: 160px;
+  box-sizing: border-box;
+}
+
+.candidates-table ul {
+  padding-left: 20px;
+  display: inline-block;
+}
+
+.candidates-table ul li {
+  color: $sytac-orange;
+  /*list-style: square;*/
+}
+
+/*overrides the bootstrap border color*/
+.border {
+  border-color: $borderColor !important;
+}
+
+.dev-case-workflow > span {
+  padding: 0px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEElEQVR42mN8Vqd0hhFEAAAX9wSnYYSVxQAAAABJRU5ErkJggg==);
+  background-repeat: repeat-x;
+  background-position: left 10px top 50%;
+}
+
+.dev-case-workflow button {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border: solid 3px $sytac-orange;
+  border-radius: 50%;
+  box-shadow: 1px 1px 2px #888888;
+  margin-left: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.dev-case-workflow button.disabled {
+  cursor: default;
+}
+
+.dev-case-workflow button.selected {
+  height: 28px;
+  width: 28px;
+  position: relative;
+  top: 3px;
+}
+
+.dev-case-workflow button:nth-child(1) {
+  margin-left: 0px;
+  border-color: $sytac-workflow-stage-1;
+}
+
+.dev-case-workflow button.selected:nth-child(1), .dev-case-workflow button.disabled:nth-child(1) {
+  background-color: $sytac-workflow-stage-1;
+}
+
+.dev-case-workflow button:nth-child(2) {
+  border-color: #28a745;
+}
+
+.dev-case-workflow button.selected:nth-child(2), .dev-case-workflow button.disabled:nth-child(2) {
+  background-color: #28a745;
+}
+
+.dev-case-workflow button:nth-child(3) {
+  border-color: #17a2b8;
+}
+
+.dev-case-workflow button.selected:nth-child(3), .dev-case-workflow button.disabled:nth-child(3) {
+  background-color: #17a2b8;
+}
+
+.dev-case-workflow button.selected:nth-child(4), .dev-case-workflow button.disabled:nth-child(4) {
+  background-color: #868e96;
+}
+
+.dev-case-workflow button:nth-child(4) {
+  border-color: #868e96;
+}
+
+.dev-case-actions {
+  padding-right: 0px;
+}
+
+.dev-case-action > div {
+  display: inline;
+}
+
+.dev-case-action .dropdown-item:hover {
+  background-color: rgba(207, 113, 30, .05) !important;
+}
+
+.dev-case-action .dropdown-menu {
+  border: solid 1px $borderColor;
+}
+
+.candidates-table .rotate90 {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  font-weight: bold;
+  font-size: 120%;
+}

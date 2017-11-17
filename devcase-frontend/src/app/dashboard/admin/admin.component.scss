@@ -1,0 +1,92 @@
+@import '../../../assets/css/_variables.scss';
+
+.emailNotificationsTable .col {
+  margin-top: 20px;
+}
+
+.emailNotificationsTable {
+  text-align: center;
+  color: #495057 !important;
+}
+
+.workflow-stage-title .col:nth-child(1) h4 {
+  border-bottom-color: $sytac-workflow-stage-1;
+}
+
+.workflow-stage-title .col:nth-child(2) h4 {
+  border-bottom-color: $sytac-workflow-stage-2;
+}
+
+.workflow-stage-title .col:nth-child(3) h4 {
+  border-bottom-color: $sytac-workflow-stage-3;
+}
+
+.workflow-stage-title .col:nth-child(4) h4 {
+  border-bottom-color: $sytac-workflow-stage-4;
+}
+
+.emailNotificationsTable h4 {
+  width: 100%;
+  border-bottom: solid 4px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-bottom: 5px;
+}
+
+.emailNotificationsTable h4 {
+  /*border: solid 10px red;
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  padding-top: 40px;
+  display: inline-block;*/
+}
+
+.emailNotificationsTable select {
+  width: calc(100% + 17px);
+  border: none;
+  outline: none;
+  top: -25px;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+}
+option:hover,
+option:focus,
+option:active,
+option:checked {
+  background: linear-gradient(#5A2569, #5A2569);
+}
+
+.emailNotificationsTable div.selectorWrapper span{
+  font-style: italic;
+  cursor: pointer;
+}
+
+.emailNotificationsTable div.selectorWrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.emailNotificationsTable button {
+  background: none;
+  border: solid 1px #efefef;
+  border-radius: 5px;
+  margin: 2px 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.emailNotificationsTable button span {
+  font-weight: bold;
+  color: #cdcdcd;
+}
+
+.emailNotificationsTable button:active {
+  outline: none;
+}
+
+.emailNotificationsTable button:hover {
+  outline: none;
+}

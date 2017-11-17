@@ -1,0 +1,11 @@
+build
+log
+.gradle
+.idea
+devcase-backend/build
+devcase-backend/log
+devcase-backend/.idea
+devcase-backend/.gradle
+devcase-backend/target
+devcase-frontend/node_modules
+devcase-frontend/.gradle
