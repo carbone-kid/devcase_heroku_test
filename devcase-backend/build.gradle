@@ -51,4 +51,12 @@ task copyFrontend(type: Copy) {
     into file('src/main/resources/META-INF/resources/')
 }
 
+task copyToLib(type: Copy, dependsOn: ['build']) {
+    into "../build/libs"
+    from("build/libs/")
+}
+
+task stage(dependsOn: ['build', 'clean', 'copyToLib'])
+
 build.dependsOn copyFrontend
+build.mustRunAfter clean
